@@ -20,8 +20,8 @@
 
 #include <sstream>
 
-#include <libusbpp/Endpoint.hpp>
-#include <libusbpp/Exception.hpp>
+#include <Endpoint.hpp>
+#include <Exception.hpp>
 
 #include "InterfaceImpl.hpp"
 #include "DeviceImpl.hpp"

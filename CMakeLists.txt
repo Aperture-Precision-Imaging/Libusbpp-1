@@ -17,6 +17,10 @@ cmake_minimum_required(VERSION 2.8.5 FATAL_ERROR)
 # ${PROJECT_NAME}.
 project (libusbpp CXX)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 # The project package version.
 set (PROJECT_VERSION_MAJOR 1)
 set (PROJECT_VERSION_MINOR 0)
@@ -79,7 +83,9 @@ endif (${srcdir} STREQUAL ${bindir})
 # Use NEW behavior with newer CMake releases
 foreach (p
 		CMP0025 # CMake 3.0: Compiler id for Apple Clang is now AppleClang
-		)
+        CMP0026 # CMake 3.0: Disallow use of the LOCATION target property
+        CMP0042 # CMake 3.0: CMake 2.8.12 and newer has support for using ``@rpath`` - CMP0042
+        )
 	if (POLICY ${p})
 		cmake_policy(SET ${p} NEW)
 	endif()
@@ -87,7 +93,6 @@ endforeach()
 
 # Use OLD behavior with newer CMake releases
 foreach (p
-		CMP0026 # CMake 3.0: Disallow use of the LOCATION target property
 		)
 	if (POLICY ${p})
 		cmake_policy(SET ${p} OLD)
@@ -102,16 +107,19 @@ include(GNUInstallDirs)
 
 # Check for C++14 or at least C++11 support
 include (CheckCXXCompilerFlag)
-check_cxx_compiler_flag ("-std=c++14" COMPILER_SUPPORTS_CXX14)
-if (COMPILER_SUPPORTS_CXX14)
-    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
-else (COMPILER_SUPPORTS_CXX14)
+check_cxx_compiler_flag ("-std=c++17" COMPILER_SUPPORTS_CXX17)
+if (COMPILER_SUPPORTS_CXX17)
+    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+else (COMPILER_SUPPORTS_CXX17)
     message (WARNING "The compiler ${CMAKE_CXX_COMPILER} "
-                     "has no C++14 support. Try to fall back "
-                     "to older C++11 compatibility level.")
+                     "has no C++17 support. Try to fall back "
+                     "to older C++14 or C++11 compatibility level.")
+    check_cxx_compiler_flag ("-std=c++14" COMPILER_SUPPORTS_CXX14)
     check_cxx_compiler_flag ("-std=c++11" COMPILER_SUPPORTS_CXX11)
     check_cxx_compiler_flag ("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
-    if (COMPILER_SUPPORTS_CXX11)
+    if (COMPILER_SUPPORTS_CXX14)
+        set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
+    elseif (COMPILER_SUPPORTS_CXX11)
         set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
     elseif (COMPILER_SUPPORTS_CXX0X)
         set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
@@ -122,7 +130,7 @@ else (COMPILER_SUPPORTS_CXX14)
     endif (COMPILER_SUPPORTS_CXX11)
     set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${CMAKE_CURRENT_SOURCE_DIR}/cmake")
     set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -include backport_std_unique_ptr.hpp")
-endif (COMPILER_SUPPORTS_CXX14)
+endif (COMPILER_SUPPORTS_CXX17)
 
 # Setup CMake to run tests
 include (CTest)
@@ -187,6 +195,5 @@ install (FILES ${CMAKE_CURRENT_BINARY_DIR}/${PACKAGE}.pc
          DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
 
 ## Add subdirectories
-add_subdirectory (headers)
 add_subdirectory (src)
 add_subdirectory (examples)

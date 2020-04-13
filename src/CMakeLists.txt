@@ -3,12 +3,13 @@
 #
 
 # Require libusb-1.0
-find_package (LibUSB-1.0 REQUIRED)
-if (LIBUSB1_FOUND)
-    include_directories (${LIBUSB1_INCLUDE_DIR})
-else (LIBUSB1_FOUND)
+#find_package (LibUSB-1.0 REQUIRED)
+find_package(libusb-1.0 REQUIRED)
+if (LIBUSB_1_FOUND)
+    include_directories (SYSTEM ${LIBUSB_1_INCLUDE_DIR})
+else (LIBUSB_1_FOUND)
     message (FATAL_ERROR "LibUSB-1.0 was not found.")
-endif (LIBUSB1_FOUND)
+endif (LIBUSB_1_FOUND)
 
 # On Windows do not prefix the DLLs with the 'lib' prefix
 if (WIN32)
@@ -69,13 +70,12 @@ set_property (TARGET ${objlibusbpp} PROPERTY POSITION_INDEPENDENT_CODE on)
 # compiling the library, and will be added to consumers' build
 # paths.
 target_include_directories (objlibusbpp
-    PUBLIC  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../headers>
+    PUBLIC  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}../src>
             $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
     PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-
 # Actual shared and static libraries built from the same object files
 add_library (sharedlibusbpp SHARED $<TARGET_OBJECTS:objlibusbpp>)
-target_link_libraries (sharedlibusbpp ${LIBUSB1_LIBRARIES})
+target_link_libraries (sharedlibusbpp ${LIBUSB_1_LIBRARIES})
 set_target_properties (sharedlibusbpp
                        PROPERTIES OUTPUT_NAME "${LIBUSBPP_LIB_NAME}"
                                   PREFIX "${LIB_PREFIX}"
@@ -97,3 +97,40 @@ install (TARGETS sharedlibusbpp staticlibusbpp EXPORT ${PACKAGE_NAME}Config
 
 # This makes the project importable from the build directory
 export (TARGETS sharedlibusbpp staticlibusbpp FILE ${PACKAGE_NAME}Config.cmake)
+
+#
+# headers/CMakeLists.txt
+#
+
+# Collect all library header files
+set (libusbppheader
+        libusbpp.hpp
+        Configuration.hpp
+        Device.hpp
+        EndpointDefs.hpp
+        Endpoint.hpp
+        Exception.hpp
+        Interface.hpp
+        TransferDefs.hpp
+        Transfer.hpp
+        )
+
+# Check if all headers were caught
+message (STATUS "Searching for uncaught library header...")
+file (GLOB_RECURSE allheader RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
+        *.h
+        *.inl
+        *.hpp
+        )
+foreach (_header ${allheader})
+    list (FIND libusbppheader ${_header} matchidx)
+    if (${matchidx} EQUAL -1)
+        message (AUTHOR_WARNING "  ${_header}")
+    endif ()
+endforeach ()
+
+# Install collected header files
+foreach (file ${libusbppheader})
+    get_filename_component( dir ${file} DIRECTORY )
+    install (FILES ${file} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PACKAGE}/${dir})
+endforeach ()

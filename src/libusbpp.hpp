@@ -24,9 +24,9 @@
 #include <memory>
 #include <list>
 
-#include <libusbpp/Device.hpp>
-#include <libusbpp/Transfer.hpp>
-#include <libusbpp/EndpointDefs.hpp>
+#include "Device.hpp"
+#include "Transfer.hpp"
+#include "EndpointDefs.hpp"
 
 
 namespace LibUSB

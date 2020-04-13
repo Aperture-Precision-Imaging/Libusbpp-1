@@ -27,7 +27,7 @@
 
 #include <stdint.h>
 
-#include <libusbpp/Endpoint.hpp>
+#include "Endpoint.hpp"
 
 
 namespace LibUSB

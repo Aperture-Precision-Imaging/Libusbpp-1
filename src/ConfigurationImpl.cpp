@@ -21,8 +21,8 @@
 #include <stdexcept>
 #include <algorithm>
 
-#include <libusbpp/Interface.hpp>
-#include <libusbpp/Exception.hpp>
+#include <Interface.hpp>
+#include <Exception.hpp>
 
 #include "ConfigurationImpl.hpp"
 #include "DeviceImpl.hpp"

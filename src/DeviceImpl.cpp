@@ -28,9 +28,9 @@
   #include <libusb.h>
 #endif
 
-#include <libusbpp/Configuration.hpp>
-#include <libusbpp/Endpoint.hpp>
-#include <libusbpp/Exception.hpp>
+#include <Configuration.hpp>
+#include <Endpoint.hpp>
+#include <Exception.hpp>
 
 #include "DeviceImpl.hpp"
 #include "ConfigurationImpl.hpp"

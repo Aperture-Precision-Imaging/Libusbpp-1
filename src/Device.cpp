@@ -18,7 +18,7 @@
  * along with libusbpp.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libusbpp/Device.hpp>
+#include <Device.hpp>
 
 #include "DeviceImpl.hpp"
 

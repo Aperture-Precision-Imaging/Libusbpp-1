@@ -23,8 +23,8 @@
 
 #include <memory>
 
-#include <libusbpp/Transfer.hpp>
-#include <libusbpp/EndpointDefs.hpp>
+#include "Transfer.hpp"
+#include "EndpointDefs.hpp"
 
 
 namespace LibUSB

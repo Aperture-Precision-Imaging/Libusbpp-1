@@ -20,7 +20,7 @@
 
 #include <stdexcept>
 
-#include <libusbpp/Endpoint.hpp>
+#include <Endpoint.hpp>
 
 #include "EndpointImpl.hpp"
 

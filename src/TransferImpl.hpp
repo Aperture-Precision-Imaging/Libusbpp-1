@@ -32,8 +32,8 @@
   #include <libusb.h>
 #endif
 
-#include <libusbpp/TransferDefs.hpp>
-#include <libusbpp/Transfer.hpp>
+#include <TransferDefs.hpp>
+#include <Transfer.hpp>
 
 #include "EndpointImpl.hpp"
 

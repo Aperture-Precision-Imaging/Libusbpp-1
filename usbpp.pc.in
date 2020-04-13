@@ -1,0 +1,11 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: libusbpp
+Description: C++ wrapper API of C API for USB device access (libusb-1.0)
+Version: 1.0
+
+Libs: -L${libdir} -lusbpp
+Cflags: -I${includedir}

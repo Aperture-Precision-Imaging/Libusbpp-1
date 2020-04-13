@@ -25,7 +25,7 @@
 #include <chrono>
 #include <future>
 
-#include <libusbpp/TransferDefs.hpp>
+#include "TransferDefs.hpp"
 
 
 namespace LibUSB

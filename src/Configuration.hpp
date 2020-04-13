@@ -25,7 +25,7 @@
 #include <string>
 #include <stdint.h>
 
-#include <libusbpp/Interface.hpp>
+#include "Interface.hpp"
 
 
 namespace LibUSB

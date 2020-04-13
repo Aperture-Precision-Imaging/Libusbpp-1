@@ -18,7 +18,7 @@
  * along with libusbpp.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <libusbpp/Configuration.hpp>
+#include <Configuration.hpp>
 
 #include "ConfigurationImpl.hpp"
 

@@ -30,7 +30,7 @@ target_link_libraries (${PROJECT_NAME}-pic-example sharedlibusbpp)
 # compiling the example, and will be added to consumers' build
 # paths.
 target_include_directories (${PROJECT_NAME}-pic-example
-    PUBLIC  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../headers>
+    PUBLIC  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../src>
             $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
     PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 

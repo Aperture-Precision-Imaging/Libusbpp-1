@@ -24,7 +24,7 @@
 #include <cstring>
 #include <wchar.h>
 
-#include <libusbpp.hpp>
+#include "../src/libusbpp.hpp"
 
 // Utility functions
 

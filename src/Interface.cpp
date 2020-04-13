@@ -24,7 +24,7 @@
   #include <libusb.h>
 #endif
 
-#include <libusbpp/Interface.hpp>
+#include <Interface.hpp>
 
 #include "InterfaceImpl.hpp"
 

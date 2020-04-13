@@ -23,7 +23,7 @@
 #include <cstring>
 
 #include <libusbpp.hpp>
-#include <libusbpp/Exception.hpp>
+#include <Exception.hpp>
 
 #include "TransferImpl.hpp"
 #include "DeviceImpl.hpp"

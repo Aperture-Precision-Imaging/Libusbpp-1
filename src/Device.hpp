@@ -25,8 +25,8 @@
 #include <string>
 #include <memory>
 
-#include <libusbpp/Configuration.hpp>
-#include <libusbpp/Endpoint.hpp>
+#include "Configuration.hpp"
+#include "Endpoint.hpp"
 
 
 namespace LibUSB
